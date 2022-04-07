@@ -98,8 +98,11 @@ spec:
                 }
                 container('docker') {
                     script {
-                        registryIp = sh(script: 'getent hosts registry.kube-system | awk \'{ print $1 ; exit }\'', returnStdout: true).trim()
-                        sh "docker build . -t ${registryIp}/demo/app:${revision} --build-arg REVISION=${revision}"
+                        withCredentials([usernamePassword(credentialsId: 'legmac', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+                        registryIp = 'legmac'
+                        sh 'docker login -u $USERNAME -p $PASSWORD'
+                        sh "docker build . -t ${registryIp}/demo_app/habr:${revision} --build-arg REVISION=${revision}"
+                      }
                     }
                 }
             }
@@ -112,7 +115,7 @@ spec:
             }
             steps {
                 container('docker') {
-                    sh "docker push ${registryIp}/demo/app:${revision}"
+                    sh "docker push ${registryIp}/demo_app:${revision}"
                 }
             }
         }
