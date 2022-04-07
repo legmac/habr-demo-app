@@ -101,7 +101,7 @@ spec:
                         withCredentials([usernamePassword(credentialsId: 'legmac', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
                         registryIp = 'legmac'
                         sh 'docker login -u $USERNAME -p $PASSWORD'
-                        sh "docker build . -t ${registryIp}/demo_app/habr:${revision} --build-arg REVISION=${revision}"
+                        sh "docker build . -t ${registryIp}/demo_app:${revision} --build-arg REVISION=${revision}"
                       }
                     }
                 }
@@ -115,7 +115,7 @@ spec:
             }
             steps {
                 container('docker') {
-                    sh "docker push ${registryIp}/demo_app/habr:${revision}"
+                    sh "docker push ${registryIp}/demo_app:${revision}"
                 }
             }
         }
