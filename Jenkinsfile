@@ -115,7 +115,7 @@ spec:
             }
             steps {
                 container('docker') {
-                    sh "docker push ${registryIp}/demo_app:${revision}"
+                    sh "docker push ${registryIp}/demo_app/habr:${revision}"
                 }
             }
         }
