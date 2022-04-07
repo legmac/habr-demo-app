@@ -44,7 +44,7 @@ spec:
   volumes:
   - name: repository
     persistentVolumeClaim:
-      claimName: repository
+      claimName: m2repo
   - name: docker-sock
     hostPath:
       path: /var/run/docker.sock
